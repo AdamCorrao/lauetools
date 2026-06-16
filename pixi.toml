@@ -1,0 +1,51 @@
+[workspace]
+name = "lauetools"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+# ---------------------------------------------------------------------------
+# Conda-forge dependencies
+# Using conda-forge for wxpython and all scientific packages gives reliable
+# pre-built Linux binaries and avoids the wxpython build-from-source problems
+# common with pip on RHEL/CentOS systems.
+# ---------------------------------------------------------------------------
+[dependencies]
+python        = ">=3.9,<3.13"
+numpy         = ">=1.0.3"
+scipy         = ">=0.15.0"
+matplotlib    = ">=2.0.0"
+wxpython      = ">=4.0"
+networkx      = ">=2.1"
+h5py          = ">=3.1"
+scikit-image  = ">=0.1.0"
+astropy       = ">=3.0"
+fabio         = ">=0.11.0"
+pyyaml        = ">=6.0.1"
+tqdm          = ">=4.60.0"
+docutils      = ">=0.3"
+imageio       = "*"
+# build tools needed to install lauetools itself in editable mode
+setuptools    = ">=61.0"
+setuptools-scm = ">=7.0"
+pip           = "*"
+
+# ---------------------------------------------------------------------------
+# Local editable install of this fork
+# All package dependencies are already satisfied above, so pixi/uv will not
+# pull duplicate copies from PyPI.
+# ---------------------------------------------------------------------------
+[pypi-dependencies]
+lauetools = { path = ".", editable = true }
+
+# ---------------------------------------------------------------------------
+# Tasks — run any GUI with: pixi run <task-name>
+# ---------------------------------------------------------------------------
+[tasks]
+lauetools    = { cmd = "lauetools",    description = "Main LaueTools GUI" }
+peaksearch   = { cmd = "peaksearch",   description = "Peak search GUI" }
+indexrefine  = { cmd = "indexrefine",  description = "Index and refine GUI" }
+plotmeshgui  = { cmd = "plotmeshGUI",  description = "Mesh plot GUI" }
+buildsummary = { cmd = "buildsummary", description = "Build summary GUI" }
+plotmap      = { cmd = "plotmap",      description = "Plot maps GUI" }
+mapanalyzer  = { cmd = "mapanalyzer",  description = "Map analyzer GUI" }
+daxmgui      = { cmd = "daxmgui",      description = "DAXM GUI" }
