@@ -40,6 +40,14 @@ lauetools = { path = ".", editable = true }
 # ---------------------------------------------------------------------------
 # Tasks — run any GUI with: pixi run <task-name>
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# On Linux, conda-forge's wxpython .so links to libwx dynamically and the
+# system's older libwx (e.g., Ubuntu ships <3.2.6) gets found first.
+# Prepending the env's lib dir forces the bundled wxwidgets-3.2.9 to win.
+# ---------------------------------------------------------------------------
+[activation]
+env = { LD_LIBRARY_PATH = "$CONDA_PREFIX/lib" }
+
 [tasks]
 lauetools    = { cmd = "lauetools",    description = "Main LaueTools GUI" }
 peaksearch   = { cmd = "peaksearch",   description = "Peak search GUI" }
